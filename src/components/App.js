@@ -9,23 +9,11 @@ import base from '../base';
 // the app would define the components that are used and what props are *in* it and what text goes into the props
 
 class App extends React.Component {
-    constructor() {
-        super();
 
-        //need to do this to bind "this" (App) to functions (but only functions that are calling "this" inside)
-        this.addFish = this.addFish.bind(this);
-        this.updateFish = this.updateFish.bind(this);
-        this.removeFish = this.removeFish.bind(this);
-        this.loadSamples = this.loadSamples.bind(this);
-        this.addToOrder = this.addToOrder.bind(this);
-        this.removeFromOrder = this.removeFromOrder.bind(this);
-
-        // get initial state
-        this.state = {
-            fishes: {},
-            order: {}
-        };
-    }
+    state = {
+        fishes: {},
+        order: {}
+    };
 
     componentWillMount() {
         //this runs before the <App> is rendered
@@ -55,7 +43,7 @@ class App extends React.Component {
         localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order));
     }
 
-    addFish(fish) {
+    addFish = (fish) => {
         //this is a method that changes the state of "fish" in the application
         // it takes one argument, the fish object
 
@@ -76,31 +64,30 @@ class App extends React.Component {
 
         // set state
         this.setState({fishes});
+    };
 
-    }
-
-    updateFish(key, updatedFish) {
+    updateFish = (key, updatedFish) => {
         const fishes = {...this.state.fishes};
         fishes[key] = updatedFish;
         this.setState({fishes});
-    }
+    };
 
-    removeFish(key) {
+    removeFish = (key) => {
         const fishes = {...this.state.fishes};
 
         // hooked up to firebase so have to remove from there
         fishes[key] = null;
         this.setState({fishes});
-    }
+    };
 
-    loadSamples() {
+    loadSamples = () => {
     // we put this function here instead of Inventory.js because it needs to happen where the *state* lives
         this.setState({
             fishes: sampleFishes
         });
-    }
+    };
 
-    addToOrder(key) {
+    addToOrder = (key) => {
         // adds the key (fish key) to order)
         // take a copy of state
         const order = {...this.state.order};
@@ -111,13 +98,13 @@ class App extends React.Component {
 
         //update the state
         this.setState({ order });
-    }
+    };
 
-    removeFromOrder(key) {
+    removeFromOrder = (key) => {
         const order = {...this.state.order};
         delete order[key];
         this.setState({order});
-    }
+    };
 
     render() {
         return (

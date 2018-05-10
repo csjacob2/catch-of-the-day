@@ -4,17 +4,16 @@ import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter, Match, Miss } from 'react-router';
 
-
 import './css/style.css';
 import App from './components/App';
 import StorePicker from './components/StorePicker';
 import NotFound from './components/NotFound';
 
-const githubRepo = `/${window.location.pathname.split('/'[1])}`;
+//const githubRepo = `/${window.location.pathname.split('/'[1])}`;
 
 const Root = () =>  {
     return (
-        <BrowserRouter basename={githubRepo}>
+        <BrowserRouter>
             <div>
                 {/* match exactly pattern = homepage (/) or root page */}
                 <Match exactly pattern="/" component={StorePicker}/>
